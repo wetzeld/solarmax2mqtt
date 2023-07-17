@@ -11,6 +11,7 @@ DEFAULT_QUERY_KEYS = [
     "operating_hours",
     "energy_year",
     "energy_month",
+    "energy_day",
     "energy_total",
     "relative_output",
     "voltage_dc",
