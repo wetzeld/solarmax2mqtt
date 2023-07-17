@@ -7,7 +7,7 @@ RUN cd /usr/src/solarmax2mqtt && pip wheel .
 
 FROM final
 
-COPY --from=build /usr/src/solarmax2mqtt/*.whl /tmp
+COPY --from=build /usr/src/solarmax2mqtt/*.whl /tmp/
 RUN cd /tmp &&  \
     PYTHONDONTWRITEBYTECODE=1 pip install --no-compile --no-cache-dir --no-deps *.whl && \
     rm /tmp/*.whl
