@@ -24,18 +24,14 @@ class SolarMaxMQTTAgent:
         mqtt_topic: str = "inverter/solarmax",
     ):
         self.inverter_keys = inverter_keys
-        self.solarmax = SolarMax(
-            host=inverter_host, port=inverter_port, inverter_index=inverter_index
-        )
+        self.solarmax = SolarMax(host=inverter_host, port=inverter_port, inverter_index=inverter_index)
         self.mqtt_broker_host = mqtt_broker_host
         self.mqtt_broker_port = mqtt_broker_port
         self.mqtt_topic = mqtt_topic
 
         self.client = mqtt.Client(client_id=f"SolarMax[{inverter_host}]")
         if mqtt_broker_auth is not None:
-            self.client.username_pw_set(
-                username=mqtt_broker_auth[0], password=mqtt_broker_auth[1]
-            )
+            self.client.username_pw_set(username=mqtt_broker_auth[0], password=mqtt_broker_auth[1])
         self.client.enable_logger()
 
     def convert_key(self, key: str):
@@ -79,8 +75,7 @@ class SolarMaxMQTTAgent:
                 publish_result = self.client.publish(self.mqtt_topic, json.dumps(data))
                 if publish_result.rc != mqtt.MQTT_ERR_SUCCESS:
                     LOGGER.warning(
-                        "Failed to publish message to MQTT broker! "
-                        "Connected: %i, Error %i",
+                        "Failed to publish message to MQTT broker! " "Connected: %i, Error %i",
                         self.client.is_connected(),
                         publish_result.rc,
                     )

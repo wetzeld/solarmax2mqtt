@@ -69,23 +69,11 @@ def main():
         "If not present, a default set of values is queried.",
     )
 
-    arg_parser.add_argument(
-        "-b", "--mqtt-broker",
-        default="localhost",
-        help="IP or host of the MQTT broker"
-    )
-    arg_parser.add_argument(
-        "--mqtt-broker-port",
-        type=int,
-        default=1883,
-        help="TCP port number of the MQTT broker."
-    )
+    arg_parser.add_argument("-b", "--mqtt-broker", default="localhost", help="IP or host of the MQTT broker")
+    arg_parser.add_argument("--mqtt-broker-port", type=int, default=1883, help="TCP port number of the MQTT broker.")
 
     arg_parser.add_argument(
-        "-t",
-        "--mqtt-topic",
-        default="inverter/solarmax",
-        help="The MQTT topic the inverter data is published on."
+        "-t", "--mqtt-topic", default="inverter/solarmax", help="The MQTT topic the inverter data is published on."
     )
 
     args = arg_parser.parse_args()
@@ -106,7 +94,7 @@ def main():
         mqtt_broker_host=args.mqtt_broker,
         mqtt_broker_port=args.mqtt_broker_port,
         # mqtt_broker_auth: tuple[str, str] | None = None,
-        mqtt_topic=args.mqtt_topic
+        mqtt_topic=args.mqtt_topic,
     )
 
     agent.run()
