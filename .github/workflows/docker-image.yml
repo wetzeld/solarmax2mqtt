@@ -26,7 +26,7 @@ jobs:
       if: ${{ github.event_name != 'pull_request' }}
     - name: Push Image
       run: |
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+        IMAGE_ID=ghcr.io/$IMAGE_NAME
         # Strip git ref prefix from version
         VERSION=$(grep __version__ src/solarmax2mqtt/_version.py | cut -d '"' -f2 | xargs)
 
