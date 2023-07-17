@@ -51,8 +51,6 @@ class SolarMaxMQTTAgent:
         return result
 
     def run(self):
-        # todo: handle disconnects / reconnects to inverter
-
         LOGGER.info(
             "Connecting to MQTT broker %s:%i...",
             self.mqtt_broker_host,
@@ -63,7 +61,19 @@ class SolarMaxMQTTAgent:
 
         try:
             while True:
-                data = self.convert_keys(self.solarmax.query(self.inverter_keys))
+                time.sleep(5)
+
+                try:
+                    if not self.solarmax.connected:
+                        # wait until the inverter is reachable (again).
+                        self.solarmax.reconnect()
+                    data = self.convert_keys(self.solarmax.query(self.inverter_keys))
+                except KeyboardInterrupt:
+                    break
+                except Exception as e:
+                    LOGGER.error("Failed to retrieve data: %s", str(e))
+                    continue
+
                 LOGGER.info(data)
 
                 publish_result = self.client.publish(self.mqtt_topic, json.dumps(data))
@@ -74,12 +84,11 @@ class SolarMaxMQTTAgent:
                         self.client.is_connected(),
                         publish_result.rc,
                     )
-
-                time.sleep(5)
-
         except KeyboardInterrupt:
-            LOGGER.info("Shutting down.")
             pass
+        finally:
+            LOGGER.info("Shutting down.")
 
         self.client.disconnect()
         self.client.loop_stop()
+        self.solarmax.disconnect()
