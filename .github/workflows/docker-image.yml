@@ -23,6 +23,7 @@ jobs:
       run: docker build . --file Dockerfile --tag $IMAGE_NAME
     - name: Log in to registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      if: ${{ github.event_name != 'pull_request' }}
     - name: Push Image
       run: |
         IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
@@ -35,3 +36,4 @@ jobs:
         # TODO: only tag latest if on "main"
         docker tag $IMAGE_NAME $IMAGE_ID:latest
         docker push -a $IMAGE_ID
+      if: ${{ github.event_name != 'pull_request' }}
