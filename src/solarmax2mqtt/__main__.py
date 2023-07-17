@@ -27,7 +27,7 @@ def parse_key(s: str) -> SolarMaxQueryKey:
     try:
         return SolarMaxQueryKey[s.upper()]
     except KeyError:
-        raise argparse.ArgumentTypeError(f"{s!r} is not a valid SolarMax data key.")
+        raise argparse.ArgumentTypeError(f"{s!r} is not a valid SolarMax data key.") from None
 
 
 def main():
