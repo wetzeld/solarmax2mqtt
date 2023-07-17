@@ -20,6 +20,8 @@ classifiers = [
 ]
 readme = "README.md"
 dependencies = [
+    "paho-mqtt>=1.6.1",
+    "git+https://github.com/wetzeld/solarmax_query.git",
 ]
 
 [tool.black]
