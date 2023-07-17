@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "solarmax2mqtt"
+dynamic = ["version"]
+authors = [
+    { name="Dominik Wetzel", email="dominik@wetzel.one" },
+]
+description = "Yet another SolarMax PV inverter MQTT agent with Home Assistant integration."
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "License :: OSI Approved :: BSD License",
+    "Topic :: Home Automation"
+]
+readme = "README.md"
+dependencies = [
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 120
+exclude = [
+    ".build",
+    ".git",
+    ".idea",
+    ".vscode",
+    "venv",
+]
+ignore = [
+    # ignore missing docstrings
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    # ignore not passing stack_level into warnings.warn
+    "B028",
+    # ingore conflicting rules
+    "D203",
+    "D213"
+]
+select = [
+    "B",
+    "B9",
+    "C",
+    "D",
+    "E",
+    "F",
+    "W",
+]
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "solarmax2mqtt._version.__version__"}
