@@ -1,6 +1,7 @@
 import logging
 import os
 
+from typing import Type
 from solarmax_query.constants import SolarMaxQueryKey
 from .agent import SolarMaxMQTTAgent
 
@@ -11,7 +12,7 @@ DEFAULT_INVERTER_KEYS = (
 )
 
 
-def get_inverter_keys() -> list[SolarMaxQueryKey]:
+def get_inverter_keys() -> list[Type[SolarMaxQueryKey]]:
     keys = os.environ.get("INVERTER_KEYS", DEFAULT_INVERTER_KEYS)
     return [SolarMaxQueryKey[key.strip().upper()] for key in keys.split(",")]
 

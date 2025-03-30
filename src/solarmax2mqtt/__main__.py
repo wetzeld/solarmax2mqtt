@@ -1,6 +1,7 @@
 import argparse
 import logging
 
+from typing import Type
 from solarmax_query.constants import SolarMaxQueryKey
 from .agent import SolarMaxMQTTAgent
 
@@ -23,7 +24,7 @@ DEFAULT_QUERY_KEYS = [
 ]
 
 
-def parse_key(s: str) -> SolarMaxQueryKey:
+def parse_key(s: str) -> Type[SolarMaxQueryKey]:
     try:
         return SolarMaxQueryKey[s.upper()]
     except KeyError:

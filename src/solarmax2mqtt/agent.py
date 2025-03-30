@@ -1,7 +1,7 @@
 import json
 import logging
 import time
-from typing import Any
+from typing import Any, Type
 
 import paho.mqtt.client as mqtt
 
@@ -14,7 +14,7 @@ LOGGER = logging.getLogger("SolarMaxMQTTAgent")
 class SolarMaxMQTTAgent:
     def __init__(
         self,
-        inverter_keys: list[SolarMaxQueryKey] | list[str],
+        inverter_keys: list[Type[SolarMaxQueryKey]] | list[str],
         inverter_host: str,
         inverter_port: int = 12345,
         inverter_index: int = 1,
